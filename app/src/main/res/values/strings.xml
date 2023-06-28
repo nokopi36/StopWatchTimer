@@ -5,9 +5,12 @@
     <string name="reset">reset</string>
     <string name="play_sound">playSound</string>
     <string name="first_chime">予鈴時間 %s</string>
+    <string name="second_chime">終鈴時間 %s</string>
     <string name="end_chime">終了時間 %s</string>
     <string name="first_chime_text">予鈴時間</string>
+    <string name="second_chime_text">終鈴時間</string>
     <string name="end_chime_text">終了時間</string>
     <string name="semicolon">：</string>
     <string name="setting">設定</string>
+    <string name="setting_time">%s</string>
 </resources>

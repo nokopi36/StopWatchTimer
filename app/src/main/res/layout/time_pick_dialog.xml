@@ -15,55 +15,13 @@
         android:layout_height="match_parent"
         android:padding="10dp">
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/firstChimeText"-->
-<!--            android:text="@string/first_chime"-->
-<!--            android:textColor="@color/text_color"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"/>-->
-
-<!--        <com.google.android.material.switchmaterial.SwitchMaterial-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/chimeModeSwitch"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"/>-->
-
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/chimeModeChipGroup"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/firstTime"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:text="@string/first_chime_text"
-                android:onClick="@{() -> viewModel.changeFirstTimeMode()}"/>
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/endTime"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:text="@string/end_chime_text"
-                android:onClick="@{() -> viewModel.changeEndTimeMode()}"/>
-
-        </com.google.android.material.chip.ChipGroup>
-
 
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tenMinute"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chimeModeChipGroup"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/minute"
             app:layout_constraintHorizontal_chainStyle="packed"/>
 
@@ -72,7 +30,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/minute"
             app:layout_constraintLeft_toRightOf="@id/tenMinute"
-            app:layout_constraintTop_toBottomOf="@id/chimeModeChipGroup"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/semicolon"
             app:layout_constraintHorizontal_chainStyle="packed"/>
 
@@ -94,7 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tenSecond"
             app:layout_constraintLeft_toRightOf="@id/semicolon"
-            app:layout_constraintTop_toBottomOf="@id/chimeModeChipGroup"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/second"
             app:layout_constraintHorizontal_chainStyle="packed"/>
 
@@ -103,7 +61,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/second"
             app:layout_constraintLeft_toRightOf="@id/tenSecond"
-            app:layout_constraintTop_toBottomOf="@id/chimeModeChipGroup"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"/>
 

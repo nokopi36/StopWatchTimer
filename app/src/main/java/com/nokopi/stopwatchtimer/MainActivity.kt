@@ -1,24 +1,27 @@
 package com.nokopi.stopwatchtimer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.nokopi.stopwatchtimer.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), TimePickerDialogFragment.DialogListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var fragmentManager: FragmentManager
 
     companion object {
-        private const val FIRST_CHIME = 1
-        private const val END_CHIME = 2
+        const val FIRST_CHIME = 1
+        const val SECOND_CHIME = 2
+        const val END_CHIME = 3
+        var firstSettingTime = SettingTime("-", "-", "-", "-")
+        var secondSettingTime = SettingTime("-", "-", "-", "-")
+        var endSettingTime = SettingTime("-", "-", "-", "-")
     }
 
 
@@ -33,40 +36,25 @@ class MainActivity : AppCompatActivity(), TimePickerDialogFragment.DialogListene
         fragmentManager = supportFragmentManager
 
         viewModel.timerText.observe(this) {
-            if (it == "59:59:9") {
-                viewModel.playFirstChimeSound()
-                viewModel.disableStartBtn()
-            } else if (it == "${viewModel.firstChimeTime.value}:0") {
-                viewModel.playFirstChimeSound()
-            } else if (it == "${viewModel.endChimeTime.value}:0") {
-                viewModel.playEndChimeSound()
+            when (it) {
+                "59:59" -> {
+                    viewModel.playFirstChimeSound()
+                    viewModel.disableStartBtn()
+                }
+                "${viewModel.firstChimeTime.value}" -> {
+                    viewModel.playFirstChimeSound()
+                }
+                "${viewModel.endChimeTime.value}" -> {
+                    viewModel.playEndChimeSound()
+                }
             }
         }
 
         binding.settingBtn.setOnClickListener {
-            val dialog = TimePickerDialogFragment()
-            dialog.show(fragmentManager, "NumberPicker")
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
         }
 
-    }
-
-    override fun onNumberPickerDialogPositiveClick(
-        dialog: DialogFragment,
-        tenMinute: String,
-        minute: String,
-        tenSecond: String,
-        second: String,
-        chimeMode: Int?
-    ) {
-        if (chimeMode == FIRST_CHIME) {
-            viewModel.setFirstTime(tenMinute, minute, tenSecond, second)
-        } else if (chimeMode == END_CHIME) {
-            viewModel.setEndTime(tenMinute, minute, tenSecond, second)
-        }
-    }
-
-    override fun onNumberPickerDialogNegativeClick(dialog: DialogFragment) {
-        TODO("Not yet implemented")
     }
 
     override fun onDestroy() {
@@ -74,6 +62,12 @@ class MainActivity : AppCompatActivity(), TimePickerDialogFragment.DialogListene
         fragmentManager.fragments.forEach { fragment ->
             fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setFirstTime(firstSettingTime)
+        viewModel.setEndTime(endSettingTime)
     }
 
 }

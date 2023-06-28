@@ -3,6 +3,7 @@ package com.nokopi.stopwatchtimer
 import android.app.Application
 import android.media.AudioAttributes
 import android.media.SoundPool
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,7 @@ import kotlin.concurrent.scheduleAtFixedRate
 class MainViewModel(app: Application): ViewModel() {
 
     companion object {
-        private const val TERM_MILLISECOND: Long = 100
+        private const val TERM_MILLISECOND: Long = 1000
     }
 
     private var timer = Timer()
@@ -33,7 +34,7 @@ class MainViewModel(app: Application): ViewModel() {
     private val endChime = sound.load(app, R.raw.end_chime, 1)
 
 
-    private var _timerText: MutableLiveData<String> = MutableLiveData<String>("00:00:0")
+    private var _timerText: MutableLiveData<String> = MutableLiveData<String>("00:00")
     val timerText: LiveData<String>
         get() = _timerText
 
@@ -63,7 +64,7 @@ class MainViewModel(app: Application): ViewModel() {
 
 //    private var time = 3595000L // デバッグ用　59分55秒
     private var time = 0L
-    private val dataFormat = SimpleDateFormat("mm:ss:S", Locale.getDefault())
+    private val dataFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
 
 
     fun resetTimer() {
@@ -104,12 +105,18 @@ class MainViewModel(app: Application): ViewModel() {
         sound.play(endChime, 1.0f, 1.0f, 0, 0, 1.0f)
     }
 
-    fun setFirstTime(tenMinute: String, minute: String, tenSecond: String, second: String) {
-        _firstChimeTime.value = "$tenMinute$minute:$tenSecond$second"
+//    fun setFirstTime(tenMinute: String, minute: String, tenSecond: String, second: String) {
+//        _firstChimeTime.value = "$tenMinute$minute:$tenSecond$second"
+//    }
+
+    fun setFirstTime(settingTime: SettingTime) {
+//        _firstChimeTime.value = "${settingTime.firstTenMinute}${settingTime.firstMinute}:${settingTime.firstTenSecond}${settingTime.firstSecond}"
+        _firstChimeTime.value = "${settingTime.tenMinute}${settingTime.minute}:${settingTime.tenSecond}${settingTime.second}"
+        Log.i("firstTime", _firstChimeTime.value.toString())
     }
 
-    fun setEndTime(tenMinute: String, minute: String, tenSecond: String, second: String) {
-        _endChimeTime.value = "$tenMinute$minute:$tenSecond$second"
+    fun setEndTime(settingTime: SettingTime) {
+        _endChimeTime.value = "${settingTime.tenMinute}${settingTime.minute}:${settingTime.tenSecond}${settingTime.second}"
     }
 
 }

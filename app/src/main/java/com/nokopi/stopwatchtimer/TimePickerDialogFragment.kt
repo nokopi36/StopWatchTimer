@@ -10,26 +10,18 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.nokopi.stopwatchtimer.databinding.TimePickDialogBinding
 
-class TimePickerDialogFragment : DialogFragment(), NumberPicker.OnValueChangeListener {
+class TimePickerDialogFragment(private val chimeMode: Int, private val settingTime: SettingTime) : DialogFragment(),
+    NumberPicker.OnValueChangeListener {
 
     private var listener: DialogListener? = null
 
     private var _binding: TimePickDialogBinding? = null
     private val binding get() = _binding!!
 
-    companion object {
-        private const val CHIME_MODE = 0
-        private const val FIRST_CHIME = 1
-        private const val END_CHIME = 2
-    }
-
     interface DialogListener {
         fun onNumberPickerDialogPositiveClick(
             dialog: DialogFragment,
-            tenMinute: String,
-            minute: String,
-            tenSecond: String,
-            second: String,
+            settingTime: SettingTime,
             chimeMode: Int?
         )
 
@@ -49,45 +41,59 @@ class TimePickerDialogFragment : DialogFragment(), NumberPicker.OnValueChangeLis
 
         binding.tenMinute.maxValue = 5
         binding.tenMinute.minValue = 0
-        binding.tenMinute.value = 0
+        binding.tenMinute.value = if (isInt(settingTime.tenMinute)) settingTime.tenMinute.toInt() else 0
         binding.minute.maxValue = 9
         binding.minute.minValue = 0
-        binding.minute.value = 0
+        binding.minute.value = if (isInt(settingTime.minute)) settingTime.minute.toInt() else 0
         binding.tenSecond.maxValue = 5
         binding.tenSecond.minValue = 0
-        binding.tenSecond.value = 0
+        binding.tenSecond.value = if (isInt(settingTime.tenSecond)) settingTime.tenSecond.toInt() else 0
         binding.second.maxValue = 9
         binding.second.minValue = 0
-        binding.second.value = 0
+        binding.second.value = if (isInt(settingTime.second)) settingTime.second.toInt() else 0
 
         val dialog = AlertDialog.Builder(requireActivity())
             .setView(binding.root)
             .setTitle("自動チャイム設定")
-            .setPositiveButton("OK", null)
+            .setPositiveButton("OK") { _, _ ->
+                when (chimeMode) {
+                    MainActivity.FIRST_CHIME -> {
+                        val settingTime = SettingTime(binding.tenMinute.value.toString(), binding.minute.value.toString(), binding.tenSecond.value.toString(), binding.second.value.toString())
+                        listener?.onNumberPickerDialogPositiveClick(
+                            this,
+                            settingTime,
+                            chimeMode
+                        )
+                    }
+
+                    MainActivity.SECOND_CHIME -> {
+                        val settingTime = SettingTime(binding.tenMinute.value.toString(), binding.minute.value.toString(), binding.tenSecond.value.toString(), binding.second.value.toString())
+                        listener?.onNumberPickerDialogPositiveClick(
+                            this,
+                            settingTime,
+                            chimeMode
+                        )
+                    }
+
+                    MainActivity.END_CHIME -> {
+                        val settingTime = SettingTime(binding.tenMinute.value.toString(), binding.minute.value.toString(), binding.tenSecond.value.toString(), binding.second.value.toString())
+                        listener?.onNumberPickerDialogPositiveClick(
+                            this,
+                            settingTime,
+                            chimeMode
+                        )
+                    }
+                }
+            }
             .setNegativeButton("キャンセル") { dialog, _ ->
                 dialog.cancel()
             }
-            .create()
 
-        dialog.show()
-        val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-        viewModel.chimeMode.observe(this) {
-            positiveButton.isEnabled = it != CHIME_MODE
-        }
+        return dialog.create()
+    }
 
-        positiveButton.setOnClickListener {
-            listener?.onNumberPickerDialogPositiveClick(
-                this,
-                binding.tenMinute.value.toString(),
-                binding.minute.value.toString(),
-                binding.tenSecond.value.toString(),
-                binding.second.value.toString(),
-                viewModel.chimeMode.value
-            )
-            dismiss()
-        }
-
-        return dialog
+    private fun isInt(string: String): Boolean {
+        return string.toIntOrNull() != null
     }
 
     override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {

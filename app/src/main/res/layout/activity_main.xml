@@ -18,10 +18,10 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="0dp"
             android:id="@+id/timerText"
             android:text="@{viewModel.timerText}"
-            tools:text="00:00:0"
+            tools:text="00:00"
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="300sp"
@@ -41,46 +41,54 @@
             app:layout_constraintGuide_percent="0.5"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:id="@+id/startTimerBtn"
             android:text="@string/start"
+            android:layout_margin="3dp"
             android:enabled="@{viewModel.startTimerBtnEnabled}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/stopTimerBtn"
             app:layout_constraintTop_toBottomOf="@id/centerGuide"
+            app:layout_constraintBottom_toTopOf="@id/resetTimerBtn"
             android:onClick="@{() -> viewModel.startTimer()}"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:id="@+id/stopTimerBtn"
             android:text="@string/stop"
+            android:layout_margin="3dp"
             android:enabled="@{viewModel.stopTimerBtnEnabled}"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/startTimerBtn"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/startTimerBtn"
+            app:layout_constraintTop_toBottomOf="@id/centerGuide"
+            app:layout_constraintBottom_toTopOf="@id/bellBtn"
             android:onClick="@{() -> viewModel.stopTimer()}"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:id="@+id/resetTimerBtn"
             android:text="@string/reset"
+            android:layout_margin="3dp"
             android:enabled="@{viewModel.resetTimerBtnEnabled}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/bellBtn"
             app:layout_constraintTop_toBottomOf="@id/stopTimerBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{() -> viewModel.resetTimer()}"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:id="@+id/bellBtn"
+            android:layout_margin="3dp"
             android:src="@drawable/baseline_audiotrack_24"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/resetTimerBtn"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/resetTimerBtn"
+            app:layout_constraintTop_toBottomOf="@id/stopTimerBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{() -> viewModel.playFirstChimeSound()}"
             android:contentDescription="@string/play_sound" />
 
