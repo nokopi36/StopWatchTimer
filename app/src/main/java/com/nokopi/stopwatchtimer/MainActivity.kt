@@ -38,11 +38,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.timerText.observe(this) {
             when (it) {
                 "59:59" -> {
-                    viewModel.playFirstChimeSound()
+                    viewModel.playChimeSound()
                     viewModel.disableStartBtn()
                 }
                 "${viewModel.firstChimeTime.value}" -> {
-                    viewModel.playFirstChimeSound()
+                    viewModel.playChimeSound()
+                }
+                "${viewModel.secondChimeTime.value}" -> {
+                    viewModel.playChimeSound()
                 }
                 "${viewModel.endChimeTime.value}" -> {
                     viewModel.playEndChimeSound()
@@ -67,6 +70,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.setFirstTime(firstSettingTime)
+        viewModel.setSecondTime(secondSettingTime)
         viewModel.setEndTime(endSettingTime)
     }
 

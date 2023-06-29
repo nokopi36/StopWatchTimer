@@ -58,6 +58,10 @@ class MainViewModel(app: Application): ViewModel() {
     val firstChimeTime: LiveData<String>
         get() = _firstChimeTime
 
+    private var _secondChimeTime: MutableLiveData<String> = MutableLiveData<String>("--:--")
+    val secondChimeTime: LiveData<String>
+        get() = _secondChimeTime
+
     private var _endChimeTime: MutableLiveData<String> = MutableLiveData<String>("--:--")
     val endChimeTime: LiveData<String>
         get() = _endChimeTime
@@ -97,7 +101,7 @@ class MainViewModel(app: Application): ViewModel() {
         timer.cancel()
     }
 
-    fun playFirstChimeSound() {
+    fun playChimeSound() {
         sound.play(firstChime, 1.0f, 1.0f, 0, 0, 1.0f)
     }
 
@@ -105,14 +109,13 @@ class MainViewModel(app: Application): ViewModel() {
         sound.play(endChime, 1.0f, 1.0f, 0, 0, 1.0f)
     }
 
-//    fun setFirstTime(tenMinute: String, minute: String, tenSecond: String, second: String) {
-//        _firstChimeTime.value = "$tenMinute$minute:$tenSecond$second"
-//    }
-
     fun setFirstTime(settingTime: SettingTime) {
-//        _firstChimeTime.value = "${settingTime.firstTenMinute}${settingTime.firstMinute}:${settingTime.firstTenSecond}${settingTime.firstSecond}"
         _firstChimeTime.value = "${settingTime.tenMinute}${settingTime.minute}:${settingTime.tenSecond}${settingTime.second}"
         Log.i("firstTime", _firstChimeTime.value.toString())
+    }
+
+    fun setSecondTime(settingTime: SettingTime) {
+        _secondChimeTime.value = "${settingTime.tenMinute}${settingTime.minute}:${settingTime.tenSecond}${settingTime.second}"
     }
 
     fun setEndTime(settingTime: SettingTime) {
