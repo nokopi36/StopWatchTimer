@@ -1,6 +1,7 @@
 package com.nokopi.stopwatchtimer
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -22,6 +23,9 @@ class SettingActivity: AppCompatActivity(), TimePickerDialogFragment.DialogListe
         binding.viewModel = viewModel
         fragmentManager = supportFragmentManager
 
+        setSupportActionBar(binding.settingToolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         binding.firstTimeSettingBtn.setOnClickListener {
             val dialog = TimePickerDialogFragment(MainActivity.FIRST_CHIME, MainActivity.firstSettingTime)
             dialog.show(fragmentManager, "FirstNumberPicker")
@@ -38,6 +42,13 @@ class SettingActivity: AppCompatActivity(), TimePickerDialogFragment.DialogListe
         }
 
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNumberPickerDialogPositiveClick(

@@ -11,110 +11,131 @@
 
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/settingToolBar"
+            android:background="@color/design_default_color_primary"
+            app:title="@string/setting"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/settingToolBar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/firstTimeText"
-                android:text="@string/first_chime_text"
-                android:textSize="20sp"
-                android:textColor="@color/text_color"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:padding="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/firstTime"
-                android:text="@{@string/setting_time(viewModel.firstChimeTime)}"
-                android:textSize="40sp"
-                android:textColor="@color/text_color"
-                tools:text="00:00"
-                app:layout_constraintTop_toBottomOf="@id/firstTimeText"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/firstTimeSettingBtn"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/firstTimeText"
+                    android:text="@string/first_chime_text"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/firstTimeSettingBtn"
-                android:src="@drawable/baseline_settings_24"
-                app:layout_constraintTop_toTopOf="@id/firstTime"
-                app:layout_constraintLeft_toRightOf="@id/firstTime"
-                app:layout_constraintBottom_toBottomOf="@id/firstTime"
-                android:contentDescription="@string/setting"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/firstTime"
+                    android:text="@{@string/setting_time(viewModel.firstChimeTime)}"
+                    android:textSize="40sp"
+                    android:textColor="@color/text_color"
+                    tools:text="00:00"
+                    app:layout_constraintTop_toBottomOf="@id/firstTimeText"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/firstTimeSettingBtn"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/secondTimeText"
-                android:text="@string/second_chime_text"
-                android:textSize="20sp"
-                android:textColor="@color/text_color"
-                app:layout_constraintTop_toBottomOf="@id/firstTime"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/firstTimeSettingBtn"
+                    android:src="@drawable/baseline_settings_24"
+                    app:layout_constraintTop_toTopOf="@id/firstTime"
+                    app:layout_constraintLeft_toRightOf="@id/firstTime"
+                    app:layout_constraintBottom_toBottomOf="@id/firstTime"
+                    android:contentDescription="@string/setting"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/secondTime"
-                android:text="@{@string/setting_time(viewModel.secondChimeTime)}"
-                android:textSize="40sp"
-                android:textColor="@color/text_color"
-                tools:text="00:00"
-                app:layout_constraintTop_toBottomOf="@id/secondTimeText"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/secondTimeText"
+                    android:text="@string/second_chime_text"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"
+                    app:layout_constraintTop_toBottomOf="@id/firstTime"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/secondTimeSettingBtn"
-                android:src="@drawable/baseline_settings_24"
-                app:layout_constraintTop_toTopOf="@id/secondTime"
-                app:layout_constraintLeft_toRightOf="@id/secondTime"
-                app:layout_constraintBottom_toBottomOf="@id/secondTime"
-                android:contentDescription="@string/setting"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/secondTime"
+                    android:text="@{@string/setting_time(viewModel.secondChimeTime)}"
+                    android:textSize="40sp"
+                    android:textColor="@color/text_color"
+                    tools:text="00:00"
+                    app:layout_constraintTop_toBottomOf="@id/secondTimeText"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/endTimeText"
-                android:text="@string/end_chime_text"
-                android:textSize="20sp"
-                android:textColor="@color/text_color"
-                app:layout_constraintTop_toBottomOf="@id/secondTime"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/secondTimeSettingBtn"
+                    android:src="@drawable/baseline_settings_24"
+                    app:layout_constraintTop_toTopOf="@id/secondTime"
+                    app:layout_constraintLeft_toRightOf="@id/secondTime"
+                    app:layout_constraintBottom_toBottomOf="@id/secondTime"
+                    android:contentDescription="@string/setting"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/endTime"
-                android:text="@{@string/setting_time(viewModel.endChimeTime)}"
-                android:textSize="40sp"
-                android:textColor="@color/text_color"
-                tools:text="00:00"
-                app:layout_constraintTop_toBottomOf="@id/endTimeText"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/endTimeText"
+                    android:text="@string/end_chime_text"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color"
+                    app:layout_constraintTop_toBottomOf="@id/secondTime"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/endTimeSettingBtn"
-                android:src="@drawable/baseline_settings_24"
-                app:layout_constraintTop_toTopOf="@id/endTime"
-                app:layout_constraintLeft_toRightOf="@id/endTime"
-                app:layout_constraintBottom_toBottomOf="@id/endTime"
-                android:contentDescription="@string/setting"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/endTime"
+                    android:text="@{@string/setting_time(viewModel.endChimeTime)}"
+                    android:textSize="40sp"
+                    android:textColor="@color/text_color"
+                    tools:text="00:00"
+                    app:layout_constraintTop_toBottomOf="@id/endTimeText"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/endTimeSettingBtn"
+                    android:src="@drawable/baseline_settings_24"
+                    app:layout_constraintTop_toTopOf="@id/endTime"
+                    app:layout_constraintLeft_toRightOf="@id/endTime"
+                    app:layout_constraintBottom_toBottomOf="@id/endTime"
+                    android:contentDescription="@string/setting"/>
 
-    </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
