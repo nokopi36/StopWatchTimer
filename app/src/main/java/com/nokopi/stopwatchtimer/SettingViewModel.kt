@@ -19,6 +19,10 @@ class SettingViewModel: ViewModel() {
     val endChimeTime: LiveData<String>
         get() = _endChimeTime
 
+    private var _version: MutableLiveData<String> = MutableLiveData<String>()
+    val version: LiveData<String>
+        get() = _version
+
     fun setFirstTime(settingTime: SettingTime) {
         _firstChimeTime.value = "${settingTime.tenMinute}${settingTime.minute}:${settingTime.tenSecond}${settingTime.second}"
         Log.i("firstTime", _firstChimeTime.value.toString())
@@ -30,6 +34,10 @@ class SettingViewModel: ViewModel() {
 
     fun setEndTime(settingTime: SettingTime) {
         _endChimeTime.value = "${settingTime.tenMinute}${settingTime.minute}:${settingTime.tenSecond}${settingTime.second}"
+    }
+
+    fun setVersion(version: String) {
+        _version.value = version
     }
 
 }

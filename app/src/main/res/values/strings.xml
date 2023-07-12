@@ -13,4 +13,5 @@
     <string name="semicolon">：</string>
     <string name="setting">設定</string>
     <string name="setting_time">%s</string>
+    <string name="version">ver.%s</string>
 </resources>

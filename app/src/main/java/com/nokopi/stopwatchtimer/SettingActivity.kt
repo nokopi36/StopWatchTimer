@@ -41,6 +41,16 @@ class SettingActivity: AppCompatActivity(), TimePickerDialogFragment.DialogListe
             dialog.show(fragmentManager, "EndNumberPicker")
         }
 
+        try {
+            val packageName = packageName
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            val version = packageInfo.versionName
+            viewModel.setVersion(version)
+//            "ver.$version".also { binding.versionText.text = it }
+        } catch (e: Exception){
+            e.printStackTrace()
+        }
+
 
     }
 
